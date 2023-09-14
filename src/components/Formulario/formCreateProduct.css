@@ -1,0 +1,19 @@
+.error{
+    color: rgb(216, 54, 54);
+}
+.formulario{
+    max-width: 1000px;
+    margin: auto;
+}
+.formField{
+    margin: 2rem 0;
+}
+.input{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+}
+.input:focus{
+    border-bottom: 1px solid black;
+    box-shadow: none;
+}
