@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {axiosInstance} from '../services/axios.config';
 import Table from '../components/Table/Table';
+import { ItemsContext, UPLOAD_ITEMS } from '../context/itemsContext';
 
 
 const ShowProducts = () => {
-    const [items,setItems] = useState([]);
-
+    //const [items,setItems] = useState([]);
+    const {items, dispatch} = useContext(ItemsContext)
     useEffect(()=>{
         axiosInstance.get('/')
         .then(response =>{
             if(response.status == 200){
-                setItems(response.data)
+                //setItems(response.data)
+                dispatch({type:UPLOAD_ITEMS, payload: response.data})
             }else {
                 throw new Error(`[${response.status} error en la solicitud]`)
             }
@@ -18,26 +20,26 @@ const ShowProducts = () => {
         .catch(err => console.error(err))
     },[])
 
-    const editItem = (id, data) =>{
-        console.log('Editando producto');
-        axiosInstance.put(`/${id}`,data)
-        .then(response => {
-            if(response.status == 200){
-                axiosInstance.get('/')
-                .then(response => {
-                    if(response.status == 200){
-                        setItems(response.data)
-                    }else{
-                        throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
-                    }
-                })
-                .catch(err => console.log(err))
-            }else{
-                throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
-            }
-        })
-        .catch(err => console.log(err))
-    }
+    // const editItem = (id, data) =>{
+    //     console.log('Editando producto');
+    //     axiosInstance.put(`/${id}`,data)
+    //     .then(response => {
+    //         if(response.status == 200){
+    //             axiosInstance.get('/')
+    //             .then(response => {
+    //                 if(response.status == 200){
+    //                     setItems(response.data)
+    //                 }else{
+    //                     throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
+    //                 }
+    //             })
+    //             .catch(err => console.log(err))
+    //         }else{
+    //             throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
+    //         }
+    //     })
+    //     .catch(err => console.log(err))
+    // }
 
 
     return (
@@ -46,7 +48,9 @@ const ShowProducts = () => {
         <div className='tabla'>
         {
             items.length > 0? 
-                <Table items={items} editItem={editItem}/>
+                <Table items={items} 
+                // editItem={editItem}
+                />
             :
             <p style={{textAlign:"center", fontSize:"24px", color:"#fff"}}>No hay productos en el sistema</p>
         }

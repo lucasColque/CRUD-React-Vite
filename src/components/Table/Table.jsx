@@ -19,7 +19,9 @@ const Table = ({ items, editItem }) => {
             </thead>
             <tbody>
                 {
-                    items.map(item => <ItemTable key={item.id} {...item} editItem={editItem}/>)
+                    items.map(item => <ItemTable key={item.id} {...item} 
+                    // editItem={editItem}
+                    />)
                 }
 
             </tbody>
