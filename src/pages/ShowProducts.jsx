@@ -18,6 +18,26 @@ const ShowProducts = () => {
         .catch(err => console.error(err))
     },[])
 
+    const editItem = (id, data) =>{
+        console.log('Editando producto');
+        axiosInstance.put(`/${id}`,data)
+        .then(response => {
+            if(response.status == 200){
+                axiosInstance.get('/')
+                .then(response => {
+                    if(response.status == 200){
+                        setItems(response.data)
+                    }else{
+                        throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
+                    }
+                })
+                .catch(err => console.log(err))
+            }else{
+                throw new Error(`[ERROR ${response.status}] Error en la solicitud`)
+            }
+        })
+        .catch(err => console.log(err))
+    }
 
 
     return (
@@ -26,7 +46,7 @@ const ShowProducts = () => {
         <div className='tabla'>
         {
             items.length > 0? 
-                <Table items={items}/>
+                <Table items={items} editItem={editItem}/>
             :
             <p style={{textAlign:"center", fontSize:"24px", color:"#fff"}}>No hay productos en el sistema</p>
         }

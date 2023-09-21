@@ -56,7 +56,7 @@ const FormCreateProduct = () => {
                 }}
             >
                 {
-                    ({ values, errors, isSubmitting, touched }) => (
+                    ({errors, isSubmitting, touched }) => (
                         <FormBs as={Form}>
                             <FormBs.Group className="mb-3 form-floating formField">
                                 <FormBs.Control as={Field} id='name' type='text' placeholder='' name='name' className='input'/>

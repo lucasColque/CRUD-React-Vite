@@ -2,8 +2,8 @@ import React from 'react'
 import TableBs from 'react-bootstrap/Table';
 import ItemTable from '../ItemTable/ItemTable';
 import "./table.css"
-const Table = ({ items }) => {
-    console.log(items);
+const Table = ({ items, editItem }) => {
+
     return (
         // items.map((item) => <h2 key={item.id}>{item.name}</h2>)
         <TableBs striped bordered hover variant="dark" style={{maxWidth:"1000px", margin:"auto"}}>
@@ -19,7 +19,7 @@ const Table = ({ items }) => {
             </thead>
             <tbody>
                 {
-                    items.map(item => <ItemTable key={item.id} {...item}/>)
+                    items.map(item => <ItemTable key={item.id} {...item} editItem={editItem}/>)
                 }
 
             </tbody>
